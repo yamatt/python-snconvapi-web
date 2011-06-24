@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+    <title>StatusNet Conversation API</title>
+  </head>
+  <body>
+    <h1>StatusNet Conversation API</h1>
+    <p>This site gives you APIs to access the conversation data locked away in StatusNet sites</p>
+    <h2>Usage</h2>
+    <p>It's pretty simple just put the URL of a conversation in to the address bar and it will return you JSON data of the conversation.</p>
+    <p>You can also use a message as a seed conversation by putting the URL for that message in to the address bar too</p>
+    <p>Sorry, no XML yet. You shouldn't be using it anyway. I'll add it in if there are enough requests.</p>
+    <h3>Examples</h3>
+    <ul>
+      <li><a href="/http://identi.ca/conversation/74500738">Conversation example</a></li>
+      <li><a href="/http://identi.ca/notice/76992885">Seed message example</a></li>
+    </ul>
+    <h2>Why</h2>
+    <p>There is currently no API available in StatusNet instances to get conversation data out of them. This is a serious omission and is starting to cause problems in some areas.</p>
+    <p>I expect in the near future they will release official APIs but until then this will do</p>
+    <h2>How</h2>
+    <p>Screen-scrapping</p>
+    <h2>Idiot</h2>
+    <p>I probably could have better spent my time adding the functionality in PHP and submitting a patch. The only problem is I don't understand much PHP and I understand Python very well. So well infact I knocked this all up in one day.</p>
+    <h2>Can I use it?</h2>
+    <p>Yeah, it's GPL licensed, see below. If you have a StatusNet client and you want to include the Conversation.py you will have to be away of a few things.</p>
+    <ul>
+      <li>Conversation.py is initialised with a URL. You will probably want to change this.</li>
+      <li>The date object returned is only a String. This decision was made to make it easier to jsonify it. You will probably want to return the datetime object. It's there waiting for you. Hopefully at some point I'll integrate the two methods.</li>
+      <li>There are a few things that are currently a bit fudged. So be careful with them to code things faster.</li>
+      <li>The returned object after initiated won't give you an array. You have to use the `simple` variable. This was done because future versions will have the `complex` function which will pull down all the data including all User data and all Message data.</li>
+      <li>Of course if you have a better way of doing something, don't hesitate to send me a patch.</li>
+    </ul>
+    <h2>Contact</h2>
+    <p>See my site here <a href="http://localhosy.net">localhosy.net</a></p>
+    <h2>License</h2>
+    <p>I'm putting this all under the GPLv3 license. Code is available on <a href="http://github.com/yamatt">GitHub</a></p>
+    <h2>Ugly!</h2>
+    <p>Yeah, this page is ugly. It's the front end to some API, only developers will use it and they have probably stopped reading by now.</p>
+  </body>
+</html>
