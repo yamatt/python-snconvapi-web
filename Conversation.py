@@ -22,7 +22,11 @@ import time
 from datetime import datetime
 
 class Conversation:
+  default_statusnet_instance = "http://identi.ca/notice/%d"
   def __init__ (self, url):
+    #bit of an ugly hack, but it's just one way of doing it
+    if str(url).isdigit():
+      url = self.default_statusnet_instance % int(url)
     #determine if message seed or conversation
     soup = self._soup_(url)
     #test if page is message and has context
@@ -30,7 +34,7 @@ class Conversation:
       conversation_url = self._find_message_context_(soup)
       soup = self._soup_(conversation_url)
     #build conversation tuple
-    self.simple = self._build_conversation_(soup, True)
+    self.simple = self._build_conversation_(soup, True)[0]
   
   def _download_page_ (self, url):
     req = Request(url)
@@ -67,7 +71,7 @@ class Conversation:
       username = notice.find('div', attrs={'class' : 'entry-title'}).span.a.span.getText()
       user_url = notice.find('div', attrs={'class' : 'entry-title'}).span.a['href']
       date_str = notice.find('div', attrs={'class' : 'entry-content'}).a.abbr['title'] #2011-06-22T23:36:32+00:00
-      time_obj = time.strptime(date_str, u"%Y-%m-%dT%H:%M:%S+00:00") #%z seems to fail
+      time_obj = time.strptime(date_str, u"%Y-%m-%dT%H:%M:%S+00:00") #%z often fails
       date_obj = datetime.fromtimestamp(time.mktime(time_obj))
       notice_data = {
                   'id': id,
