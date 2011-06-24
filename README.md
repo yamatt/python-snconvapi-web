@@ -35,16 +35,12 @@ I probably could have better spent my time adding the functionality in PHP and s
 
 ## Can I use it?
 Yeah, it's GPL licensed, see below. If you have a StatusNet client and you want to include the Conversation.py you will have to be away of a few things.
+
 *   Conversation.py is initialised with a URL. You will probably want to change this.
-
 *   The date object returned is only a String. This decision was made to make it easier to jsonify it. You will probably want to return the datetime object. It's there waiting for you. Hopefully at some point I'll integrate the two methods.
-
 *   There are a few things that are currently a bit fudged. So be careful with them to code things faster.
-
 *   The returned object after initiated won't give you an array. You have to use the `simple` variable. This was done because future versions will have the `complex` function which will pull down all the data including all User data and all Message data.
-
 *   Of course if you have a better way of doing something, don't hesitate to send me a patch.
-
 
 ## Contact
 See my site here [localhosy.net](http://localhosy.net)
