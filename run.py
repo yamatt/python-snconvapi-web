@@ -24,12 +24,6 @@ except ImportError:
 
 app = Flask(__name__)
 
-def jsoniffy (dictionary, jsonp=None):
-  if jsonp:
-    return "%s(%s)" % (jsonp, json.dumps(dictionary))
-  else:
-    return json.dumps(dictionary)
-
 @app.route("/")
 def index():
   return render_template('index.html')
@@ -41,7 +35,7 @@ def get_conversation_data(url):
     callback = request.args.get('callback', None)
     # I didn't like the Flask supplied jsonify function, I will propose a patch to work more like this
     if callback:
-      return Response("%s(%s)" % (callback, json.dumps(conv.simple)), mimetype="application/json")
+      return Response("%s(%s)" % (callback, json.dumps(conv.simple)), mimetype="text/javascript")
     else:
       return Response(json.dumps(conv.simple), mimetype="application/json")
   else:
